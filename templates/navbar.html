@@ -1,0 +1,58 @@
+<!-- templates/navbar.html -->
+<div class="navbar">
+    <div class="logo">Dummy Logo</div>
+    <div class="nav-buttons">
+        <button onclick="login()">Login</button>
+        <button onclick="register()">Register</button>
+    </div>
+</div>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #333;
+        color: white;
+        padding: 15px 30px;
+    }
+
+    .logo {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .nav-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .nav-buttons button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .nav-buttons button:hover {
+        background: #0056b3;
+    }
+
+
+</style>
+
+<script>
+    function login() {
+        alert("Login button clicked!");
+    }
+
+    function register() {
+        window.location.href = "register";  // Redirect to registration page
+    }
+</script>
