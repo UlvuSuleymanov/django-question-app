@@ -14,9 +14,10 @@
         <div class="card mb-3 shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">{{ question.title }}</h5>
+                <p>{{ question.content }}</p>
 
                 <ul class="list-group list-group-flush mt-2">
-                    {% for variant in question.variant_set.all %}
+                    {% for variant in question.variants.all %}
                     <li class="list-group-item {% if variant.is_correct %}list-group-item-success{% endif %}">
                         {{ variant.option }}: {{ variant.text }}
                         {% if variant.is_correct %} ✅{% endif %}
