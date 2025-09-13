@@ -1,6 +1,6 @@
-
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 
 def register_page(request):
@@ -18,7 +18,7 @@ def register_user(request):
         if User.objects.filter(username=username).exists():
             return JsonResponse({"error": "Username already exists"}, status=400)
         user = User.objects.create_user(username=username, email=email, password=password)
-        return JsonResponse({"message": "User saved!"})
+        return redirect("/auth/login")
     else:
         return JsonResponse({"error": "Geçersiz istek!"}, status=400)
 
@@ -27,11 +27,23 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        if User.objects.filter(username=username).exists():
-            return JsonResponse({"error": "Username  exists"}, status=200)
-        return None
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect("/")
+
+            else:
+                return JsonResponse({"error": "Account is disabled"}, status=400)
+        else:
+            return JsonResponse({"error": "Invalid username or password"}, status=400)
     else:
         return JsonResponse({"error": "Geçersiz istek!"}, status=400)
 
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect("/")
 
 

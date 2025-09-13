@@ -20,7 +20,7 @@
                         {% endfor %}
                     {% endif %}
 
-                    <form action="/login-user/" method="POST">
+                    <form action="/auth/login-user" method="POST">
                         {% csrf_token %}
                         
                         <div class="mb-3">

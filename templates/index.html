@@ -4,8 +4,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Registered Users</h2>
-
+    <h2 class="mb-4 text-center">Hello {{ request.user.username }}. These are our registered users today</h2>
     {% if users %}
     <ul class="list-group">
         {% for user in users %}
