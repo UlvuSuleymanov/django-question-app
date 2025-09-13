@@ -1,20 +1,39 @@
 {% extends 'base.html' %}
 
-{% block title %}Registered Users{% endblock %}
+{% block title %}Questions List{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Hello {{ request.user.username }}. These are our registered users today</h2>
-    {% if users %}
-    <ul class="list-group">
-        {% for user in users %}
-            <li class="list-group-item">{{ user.username }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <div class="alert alert-warning text-center" role="alert">
-        No users registered yet.
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Hello, {{ request.user.username }}. These are all added questions</h2>
+        <a href="{% url 'add-question-page' %}" class="btn btn-primary">Add New Question</a>
     </div>
+
+    {% if questions %}
+        {% for question in questions %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ question.title }}</h5>
+
+                <ul class="list-group list-group-flush mt-2">
+                    {% for variant in question.variant_set.all %}
+                    <li class="list-group-item {% if variant.is_correct %}list-group-item-success{% endif %}">
+                        {{ variant.option }}: {{ variant.text }}
+                        {% if variant.is_correct %} ✅{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <small class="text-muted mt-2 d-block">
+                    Created by {{ question.created_by.username }} at {{ question.created_at|date:"M d, Y H:i" }}
+                </small>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning text-center">
+            No questions have been added yet.
+        </div>
     {% endif %}
 </div>
 {% endblock %}
