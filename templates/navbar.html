@@ -1,9 +1,12 @@
 <!-- templates/navbar.html -->
 <div class="navbar">
-    <div class="logo">Dummy Logo</div>
+
+    <a href="/" class="btn" style="color: white;">LOGO</a>
+
     <div class="nav-buttons">
-        <button onclick="login()">Login</button>
-        <button onclick="register()">Register</button>
+        <button onclick="window.location.href='{% url 'login' %}'">Login</button>
+        <button onclick="window.location.href='{% url 'register' %}'">Register</button>
+
     </div>
 </div>
 <style>
@@ -48,11 +51,8 @@
 </style>
 
 <script>
-    function login() {
-        alert("Login button clicked!");
+    function home() {
+        window.location.href = "/";
     }
 
-    function register() {
-        window.location.href = "register";  // Redirect to registration page
-    }
 </script>

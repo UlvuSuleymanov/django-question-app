@@ -1,68 +1,21 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/common.css' %}">
-    <title>Home Page</title>
+{% extends 'base.html' %}
 
-</head>
-<body>
-{% include 'navbar.html' %}
+{% block title %}Registered Users{% endblock %}
 
-<br/>
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Registered Users</h2>
 
-<div class="container">
-    <h2>Registered Users</h2>
-    <div class="user-list">
-        <ul id="users">
-            <li>User 1</li>
-            <li>User 2</li>
-            <li>User 3</li>
-            <li>User 4</li>
-        </ul>
+    {% if users %}
+    <ul class="list-group">
+        {% for user in users %}
+            <li class="list-group-item">{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="alert alert-warning text-center" role="alert">
+        No users registered yet.
     </div>
+    {% endif %}
 </div>
-
-<script>
-    function login() {
-        alert("Login button clicked!");
-    }
-
-    function register() {
-        window.location.href = "register";  // Redirect to registration page
-    }
-</script>
-
-   <style>
-        .container {
-            margin: 50px auto;
-            width: 80%;
-            text-align: center;
-        }
-
-        .user-list {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-    </style>
-
-</body>
-</html>
+{% endblock %}
